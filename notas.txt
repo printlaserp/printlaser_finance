@@ -1,0 +1,19 @@
+# Implementar
+- editar transações
+- modulo ficha
+- pagina de contas
+- filtros listagem
+    o - conta
+    o - usuario
+    o - categoria
+- atualização seletiva na tela de fechamento
+- *modal inserir nova transação na tela de fechamento e na tela de transações
+- modulo de despesas recorrentes
+
+
+# Corrigir
+- data de listagem de transações
+
+
+# Refatorar
+- inativar usuário

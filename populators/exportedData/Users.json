@@ -1,0 +1,98 @@
+[
+  {
+    "id": "1efe18c1-702e-4163-9cad-26c3d76c24b0",
+    "first_name": "Jayne",
+    "last_name": "Mayslla",
+    "username": "jayne",
+    "password": "$2b$10$wxaRPi7D.s9tJKj7KXBKSurBNDT/ZCSC3QHGFqwlVDLXt8KDsceq.",
+    "avatar_src": null,
+    "role": "CASHIER",
+    "active": true,
+    "create_at": "2023-11-02T22:38:43.685Z",
+    "updated_at": "2023-11-02T22:38:43.685Z"
+  },
+  {
+    "id": "72194b11-418d-460c-9c9a-d2e812111ab0",
+    "first_name": "Emanoel",
+    "last_name": "Vital",
+    "username": "manu",
+    "password": "$2b$10$vqWCDuHlwulRyXqQh5DC.E",
+    "avatar_src": null,
+    "role": "CASHIER",
+    "active": false,
+    "create_at": "2023-11-28T00:38:28.668Z",
+    "updated_at": "2023-11-28T00:38:28.668Z"
+  },
+  {
+    "id": "7f39289f-d1f4-4e12-8984-0d33dc2e3f6c",
+    "first_name": "Wendel",
+    "last_name": "S. Pereira",
+    "username": "wendelspereira",
+    "password": "$2b$10$.7VLufr1obtdgHrxGUzwL.Mh.GrQ3n85x2CSNuSdlH1t.HsGvcVh6",
+    "avatar_src": null,
+    "role": "ADMIN",
+    "active": true,
+    "create_at": "2023-11-02T22:38:43.685Z",
+    "updated_at": "2023-11-02T22:38:43.685Z"
+  },
+  {
+    "id": "82411f92-a92f-4429-9d20-30556bbdcc94",
+    "first_name": "Wendel",
+    "last_name": "S. Pereira",
+    "username": "wendel",
+    "password": "$2b$10$NxQOcNueBiPPBzEsoa/6HOFCu/wfKR8mhIN.3mquG3HB7.UBQlNKu",
+    "avatar_src": null,
+    "role": "CASHIER",
+    "active": true,
+    "create_at": "2023-12-21T18:41:14.020Z",
+    "updated_at": "2023-12-21T18:41:14.020Z"
+  },
+  {
+    "id": "84859c1c-f3b1-41c6-87ca-0e39aaceaf85",
+    "first_name": "João",
+    "last_name": "Marcos",
+    "username": "pepapreta",
+    "password": "$2b$10$MBYVYgCxXj61TlHK0.FcUOTMfwWu1.0TUhNBMtngG8RTlctvEGLP.",
+    "avatar_src": null,
+    "role": "CASHIER",
+    "active": true,
+    "create_at": "2024-01-13T14:20:52.161Z",
+    "updated_at": "2024-01-13T14:20:52.161Z"
+  },
+  {
+    "id": "c13d97b2-da2d-4965-90cc-926d67d211ad",
+    "first_name": "Administrador",
+    "last_name": "Root",
+    "username": "adm",
+    "password": "$2b$10$hq/9JUL5boY4EKd6PyjzRe4IFYWWI13xOOeTADXU64ctIc9kMmBFm",
+    "avatar_src": null,
+    "role": "ADMIN",
+    "active": true,
+    "create_at": "2023-11-02T20:05:45.111Z",
+    "updated_at": "2023-11-02T20:05:45.111Z"
+  },
+  {
+    "id": "d16bbc42-4c3d-413a-8609-ffa062c05449",
+    "first_name": "Rayslla",
+    "last_name": "Vitoria",
+    "username": "rayslla",
+    "password": "$2b$10$Fm6G8BgJv0XGcHY4OcR6kep6z2YRI14XrpkFQP6cepD.3yoHtmgzO",
+    "avatar_src": null,
+    "role": "CASHIER",
+    "active": true,
+    "create_at": "2023-12-21T18:41:14.570Z",
+    "updated_at": "2023-12-21T18:41:14.570Z"
+  },
+  {
+    "id": "db8a043a-a8f4-4591-b0bb-8f8ae924fda0",
+    "first_name": "Sandy",
+    "last_name": "Maria",
+    "username": "sandy",
+    "password": "$2b$10$gStPbJb9i5rqKezkjFrMxu9gsp.hFIxyKKkx/6obnrHcguC96qc0iW",
+    "avatar_src": null,
+    "role": "CASHIER",
+    "active": false,
+    "create_at": "2023-11-02T22:38:43.685Z",
+    "updated_at": "2023-11-02T22:38:43.685Z"
+  }
+]

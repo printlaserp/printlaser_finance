@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'react-datepicker/dist/react-datepicker.css';
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+
+/* Oculta a barra de rolagem para Firefox */
+* {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+}
+
+/* :root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  user-select: none;
+} */
+body {
+  --tw-bg-opacity: 1;
+  background-color: rgb(75 85 99 / var(--tw-bg-opacity));
+  user-select: none;
+
+  /* ::-webkit-scrollbar {
+    width: 0.5rem;
+  } */
+
+  /* ::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  } */
+
+  /* Para navegadores baseados no Firefox */
+  scrollbar-color: transparent transparent;
+}
+
+
+
+
+
+
+
+
+
+/* Oculta as barras de rolagem para navegadores baseados no WebKit, mas permite rolagem */
+::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* Garante que a rolagem ainda seja possível mesmo sem a barra de rolagem visível */
+html,
+body {
+  overflow-y: auto;
+}

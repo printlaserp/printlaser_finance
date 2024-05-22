@@ -1,0 +1,241 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+// datasource production {
+//   provider     = "mysql"
+//   url          = env("DATABASE_URL")
+//   relationMode = "prisma"
+// }
+
+datasource development {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Incomings {
+  id                  String        @id @default(uuid())
+  value               Decimal
+  category_id         String
+  subcategory_id      String
+  description         String?
+  account_id          String
+  create_at           DateTime      @default(now())
+  observation         String?
+  card_type           String
+  recurrence          Int?          @default(1)
+  card_banner         String?
+  user_id             String
+  type                String        @default("INCOME")
+  state               Boolean       @default(true)
+  card_payment_method Boolean?      @default(false)
+  updated_at          DateTime      @updatedAt
+  transaction_fee     Decimal       @default(0)
+  final_value         Decimal
+  subcategory         Subcategories @relation(fields: [subcategory_id], references: [id])
+  account             Accounts      @relation(fields: [account_id], references: [id])
+  created_by          Users         @relation(fields: [user_id], references: [id])
+  category            Categories    @relation(fields: [category_id], references: [id])
+  active              Boolean       @default(true)
+
+  @@index([create_at])
+  @@index([category_id])
+  @@index([subcategory_id])
+  @@index([account_id])
+  @@index([user_id])
+}
+
+model Expenses {
+  id             String        @id @default(uuid())
+  value          Decimal
+  type           String        @default("EXPENSE")
+  category_id    String
+  category       Categories    @relation(fields: [category_id], references: [id])
+  subcategory_id String
+  subcategory    Subcategories @relation(fields: [subcategory_id], references: [id])
+  account_id     String
+  account        Accounts      @relation(fields: [account_id], references: [id])
+  description    String
+  user_id        String
+  created_by     Users         @relation(fields: [user_id], references: [id])
+  state          Boolean       @default(true)
+  create_at      DateTime      @default(now())
+  updated_at     DateTime      @updatedAt
+  observation    String?
+  active         Boolean       @default(true)
+
+  @@index([create_at])
+  @@index([user_id])
+  @@index([account_id])
+  @@index([category_id])
+  @@index([subcategory_id])
+}
+
+model Categories {
+  id            String          @id @default(uuid())
+  label         String
+  type          String
+  create_at     DateTime        @default(now())
+  updated_at    DateTime        @updatedAt
+  subcategories Subcategories[]
+  incomings     Incomings[]
+  expenses      Expenses[]
+  color         String?
+}
+
+model Subcategories {
+  id          String      @id @default(uuid())
+  category    Categories  @relation(fields: [category_id], references: [id])
+  category_id String
+  label       String
+  create_at   DateTime    @default(now())
+  updated_at  DateTime    @updatedAt
+  color       String?
+  incomings   Incomings[]
+  expenses    Expenses[]
+
+  @@index([category_id])
+}
+
+model PaymentMethods {
+  id         String   @id @default(uuid())
+  name       String
+  label      String
+  create_at  DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Accounts {
+  id                   String          @id @default(uuid())
+  label                String
+  logo_url             String
+  balance              Decimal         @default(0)
+  initial_balance      Decimal         @default(0)
+  description          String?
+  color                String?
+  is_card_account      Boolean         @default(false)
+  create_at            DateTime        @default(now())
+  updated_at           DateTime        @updatedAt
+  is_default           Boolean         @default(false)
+  type                 String          @default("specie")
+  access_level         Int             @default(1)
+  active               Boolean         @default(true)
+  incomings            Incomings[]
+  expenses             Expenses[]
+  origin_transferences Transferences[] @relation("origin_account_id")
+  target_transferences Transferences[] @relation("target_account_id")
+  BalancePerDay        BalancePerDay[]
+}
+
+model Users {
+  id            String          @id @default(uuid())
+  first_name    String          @default("")
+  last_name     String          @default("")
+  username      String          @unique
+  password      String
+  avatar_src    String?
+  role          String          @default("CASHIER")
+  active        Boolean         @default(true)
+  create_at     DateTime        @default(now())
+  updated_at    DateTime        @updatedAt
+  Incomings     Incomings[]
+  Expenses      Expenses[]
+  Transferences Transferences[]
+  Purchases     Purchases[]
+  Clients       Clients[]
+}
+
+model Transferences {
+  id                String   @id @default(uuid())
+  value             Decimal
+  type              String   @default("TRANSFERENCE")
+  origin_account_id String
+  target_account_id String
+  description       String?
+  origin_account    Accounts @relation("origin_account_id", fields: [origin_account_id], references: [id])
+  target_account    Accounts @relation("target_account_id", fields: [target_account_id], references: [id])
+  user_id           String
+  created_by        Users    @relation(fields: [user_id], references: [id])
+  create_at         DateTime @default(now())
+  updated_at        DateTime @updatedAt
+  observation       String?
+  active            Boolean  @default(true)
+
+  @@index([target_account_id])
+  @@index([origin_account_id])
+  @@index([user_id])
+}
+
+model Fees {
+  id           String  @id @default(uuid())
+  payment_type String //DEBIT | CREDIT
+  card_banner  String
+  recurrence   Int
+  fee          Decimal
+}
+
+model BalancePerDay {
+  id         String   @id @default(uuid())
+  account_id String
+  balance    Decimal
+  date       DateTime
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  account    Accounts @relation(fields: [account_id], references: [id])
+
+  @@index([account_id])
+}
+
+model DailySummaries {
+  id              String   @id @default(uuid())
+  incomes         Float    @default(0)
+  expenses        Float    @default(0)
+  others_balances String
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+}
+
+model Clients {
+  id          String   @id @default(uuid())
+  name        String
+  address     String
+  phone       String
+  description String
+  compliant   Boolean  @default(true)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  Credit      Credit[]
+  user_id     String
+  active      Boolean  @default(true)
+  created_by  Users    @relation(fields: [user_id], references: [id])
+}
+
+model Purchases {
+  id          String   @id @default(uuid())
+  title       String
+  price       Float
+  description String
+  isService   Boolean
+  user_id     String
+  Settled     Boolean //quitado
+  created_by  Users    @relation(fields: [user_id], references: [id])
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  Credit      Credit   @relation(fields: [credit_id], references: [id])
+  credit_id   String
+  active      Boolean  @default(true)
+
+  @@index([user_id])
+  @@index([credit_id])
+}
+
+model Credit {
+  id         String      @id @default(uuid())
+  client_id  String
+  created_at DateTime    @default(now())
+  updated_at DateTime    @updatedAt
+  purchases  Purchases[]
+  client     Clients     @relation(fields: [client_id], references: [id])
+
+  @@index([client_id])
+}

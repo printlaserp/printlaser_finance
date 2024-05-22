@@ -1,0 +1,186 @@
+[
+  {
+    "id": "003cb292-d7d0-4e1b-b883-bd2f943c2ecd",
+    "label": "Fiados",
+    "type": "EXPENSE",
+    "create_at": "2023-11-28T20:49:22.683Z",
+    "updated_at": "2023-11-28T20:49:22.683Z",
+    "color": null
+  },
+  {
+    "id": "07445c95-8ba1-4c04-820f-5653334f962a",
+    "label": "Emprestimo adiquirido",
+    "type": "EXPENSE",
+    "create_at": "2023-11-05T19:10:02.694Z",
+    "updated_at": "2023-11-05T19:10:02.694Z",
+    "color": null
+  },
+  {
+    "id": "259fecba-6d00-4322-a916-e6b188ac7bf1",
+    "label": "Investimento",
+    "type": "INCOME",
+    "create_at": "2023-11-05T19:10:02.693Z",
+    "updated_at": "2023-11-05T19:10:02.693Z",
+    "color": null
+  },
+  {
+    "id": "2840f365-ae34-49bf-81b2-88f83817e1ca",
+    "label": "Devolução ref. mercadorias",
+    "type": "EXPENSE",
+    "create_at": "2023-11-28T20:19:00.353Z",
+    "updated_at": "2023-11-28T20:19:00.353Z",
+    "color": null
+  },
+  {
+    "id": "2ce5e558-5530-41c6-b7c1-42caf1323183",
+    "label": "Embalangens",
+    "type": "EXPENSE",
+    "create_at": "2023-12-28T12:22:10.647Z",
+    "updated_at": "2023-12-28T12:22:10.647Z",
+    "color": null
+  },
+  {
+    "id": "341a88ba-6837-48c0-a689-540ae1cb0028",
+    "label": "Empréstimo consedido",
+    "type": "EXPENSE",
+    "create_at": "2023-11-05T19:10:02.694Z",
+    "updated_at": "2023-11-05T19:10:02.694Z",
+    "color": null
+  },
+  {
+    "id": "36b47b4a-abc9-45ca-a31b-d2eb70e38a45",
+    "label": "Prédio",
+    "type": "EXPENSE",
+    "create_at": "2023-11-05T19:10:02.694Z",
+    "updated_at": "2023-11-05T19:10:02.694Z",
+    "color": null
+  },
+  {
+    "id": "3ef818e6-6da3-4c75-9eec-6eb910845f51",
+    "label": "Outra retirada",
+    "type": "EXPENSE",
+    "create_at": "2023-11-05T19:10:02.694Z",
+    "updated_at": "2023-11-05T19:10:02.694Z",
+    "color": null
+  },
+  {
+    "id": "431fb311-3b0b-4061-a1ad-ab82e9ec4ae0",
+    "label": "Rendimento",
+    "type": "INCOME",
+    "create_at": "2023-11-05T19:10:02.694Z",
+    "updated_at": "2023-11-05T19:10:02.694Z",
+    "color": null
+  },
+  {
+    "id": "4ca4d8e2-3f7e-4022-b79e-40b4d67e6fc0",
+    "label": "Parcelamentos",
+    "type": "EXPENSE",
+    "create_at": "2023-11-20T01:48:34.318Z",
+    "updated_at": "2023-11-20T01:48:34.318Z",
+    "color": null
+  },
+  {
+    "id": "59f2bd94-2d7c-43d8-8714-4cf2a3035f65",
+    "label": "Devolução ref. serviços",
+    "type": "EXPENSE",
+    "create_at": "2023-11-28T20:18:46.092Z",
+    "updated_at": "2023-11-28T20:18:46.092Z",
+    "color": null
+  },
+  {
+    "id": "59ff84aa-8d12-41eb-895d-88ab41f77822",
+    "label": "Reposição de mercadorias",
+    "type": "EXPENSE",
+    "create_at": "2023-11-05T19:10:02.694Z",
+    "updated_at": "2023-11-05T19:10:02.694Z",
+    "color": null
+  },
+  {
+    "id": "62ab215b-a3f0-4521-b282-85f35ea0705d",
+    "label": "Equipamentos e ferramentas",
+    "type": "EXPENSE",
+    "create_at": "2023-11-05T19:10:02.694Z",
+    "updated_at": "2023-11-05T19:10:02.694Z",
+    "color": null
+  },
+  {
+    "id": "6d1c0d53-4089-42fd-a507-cb099987893c",
+    "label": "Imposto",
+    "type": "EXPENSE",
+    "create_at": "2023-11-05T19:10:02.694Z",
+    "updated_at": "2023-11-05T19:10:02.694Z",
+    "color": null
+  },
+  {
+    "id": "6e8f0c19-8074-4e2e-a71c-29318b104564",
+    "label": "Patrimônio",
+    "type": "INCOME",
+    "create_at": "2023-11-05T19:10:02.693Z",
+    "updated_at": "2023-11-05T19:10:02.693Z",
+    "color": null
+  },
+  {
+    "id": "7d6c9011-50cc-4b03-9b57-c5a405712ef7",
+    "label": "Salários",
+    "type": "EXPENSE",
+    "create_at": "2023-11-05T19:10:02.693Z",
+    "updated_at": "2023-11-05T19:10:02.693Z",
+    "color": null
+  },
+  {
+    "id": "82f3c69a-ad64-4418-afcf-1bf6e1d8ae0b",
+    "label": "Não registrado",
+    "type": "EXPENSE",
+    "create_at": "2023-11-05T19:10:02.694Z",
+    "updated_at": "2023-11-05T19:10:02.694Z",
+    "color": null
+  },
+  {
+    "id": "8b787cfc-3d29-42ae-89bd-64d9fc5a9e35",
+    "label": "Mercadoria",
+    "type": "INCOME",
+    "create_at": "2023-11-05T19:10:02.693Z",
+    "updated_at": "2023-11-05T19:10:02.693Z",
+    "color": null
+  },
+  {
+    "id": "8c8283c8-29e3-4f83-a31b-9e06a0a3cefa",
+    "label": "Creative",
+    "type": "INCOME",
+    "create_at": "2023-11-05T19:10:02.693Z",
+    "updated_at": "2023-11-05T19:10:02.693Z",
+    "color": null
+  },
+  {
+    "id": "b6e07b44-6a3b-4e36-a1c8-9ef6fb605815",
+    "label": "Transportes/combustível",
+    "type": "EXPENSE",
+    "create_at": "2023-11-05T19:10:02.694Z",
+    "updated_at": "2023-11-05T19:10:02.694Z",
+    "color": null
+  },
+  {
+    "id": "e114e113-949e-4699-b276-5c4627cdf201",
+    "label": "Assistência",
+    "type": "INCOME",
+    "create_at": "2023-11-05T19:10:02.694Z",
+    "updated_at": "2023-11-05T19:10:02.694Z",
+    "color": null
+  },
+  {
+    "id": "f2b1b122-35ec-4d0b-9f3f-33c4ac4c30b6",
+    "label": "Substratos",
+    "type": "EXPENSE",
+    "create_at": "2023-11-05T19:10:02.694Z",
+    "updated_at": "2023-11-05T19:10:02.694Z",
+    "color": null
+  },
+  {
+    "id": "f5f7f1a3-8253-4295-b593-3df442b91496",
+    "label": "Suprimentos",
+    "type": "EXPENSE",
+    "create_at": "2023-11-05T19:10:02.694Z",
+    "updated_at": "2023-11-05T19:10:02.694Z",
+    "color": null
+  }
+]
