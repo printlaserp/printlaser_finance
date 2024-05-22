@@ -369,18 +369,36 @@ const fees = [
     },
 ]
 
-fees.forEach(async (it) => {
+(async () => {
     try {
-        const fees = await prisma.fees.create({
-            data: {
-                payment_type: it.payment_type,
-                card_banner: it.card_banner,
-                recurrence: it.recurrence,
-                fee: it.fee
+        for (const it of fees) {
+            const existingFee = await prisma.fees.findFirst({
+                where: {
+                    payment_type: it.payment_type,
+                    card_banner: it.card_banner,
+                    recurrence: it.recurrence,
+                    fee: it.fee
+                }
+            });
+
+            if (!existingFee) {
+                const createdFee = await prisma.fees.create({
+                    data: {
+                        payment_type: it.payment_type,
+                        card_banner: it.card_banner,
+                        recurrence: it.recurrence,
+                        fee: it.fee
+                    }
+                });
+                console.log(createdFee);
+            } else {
+                console.log(`Fee already exists: ${JSON.stringify(existingFee)}`);
             }
-        })
-        console.log(fees)
+        }
     } catch (err) {
-        console.log(err)
+        console.error(err);
+        throw new Error(err);
+    } finally {
+        await prisma.$disconnect();
     }
-})
+})();

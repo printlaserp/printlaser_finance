@@ -1,76 +1,18 @@
-const { hash } = require("bcrypt")
-const { PrismaClient } = require("@prisma/client")
-const prisma = new PrismaClient()
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
 
 const categories = [
-    //Incomes Categories
+    // Incomes Categories
     {
-        label: "Creative",
+        label: "Categoria 1",
         type: "INCOME",
         subcategories: [
-            { label: "Adesivo" },
-            { label: "Apostila" },
-            { label: "Arte" },
-            { label: "Boleto" },
-            { label: "Calendário" },
-            { label: "Cópia" },
-            { label: "Edição de documento" },
-            { label: "Encadernação" },
-            { label: "Fotos" },
-            { label: "Fotos 3x4" },
-            { label: "Impressão simples" },
-            { label: "Impressão em quantidade" },
-            { label: "Personalizado" },
-            { label: "Plaquinha para bolo" },
-            { label: "Plastificação" },
-            { label: "Scanner" },
-            { label: "Serviços diversos" },
-            { label: "Recargas" },
-            { label: "Outros" },
+            { label: "Subcategoria 1" },
+            { label: "Subcategoria 2" },
+            { label: "Subcategoria 3" },
         ]
     },
-    {
-        label: "Assistência",
-        type: "INCOME",
-        subcategories: [
-            { label: "Manutenção em celular" },
-            { label: "Manutenção em computador" },
-            { label: "Manutenção em impressora" },
-            { label: "Outros" },
-        ]
-    },
-    {
-        label: "Investimento",
-        type: "INCOME",
-        subcategories: [
-            { label: "Outros" },
-        ]
-
-    },
-    {
-        label: "Rendimento",
-        type: "INCOME",
-        subcategories: [
-            { label: "Nuconta" },
-            { label: "Mercado Pago" },
-            { label: "Infinit Pay" },
-        ]
-    },
-    {
-        label: "Patrimônio",
-        type: "INCOME",
-        subcategories: [
-            { label: "Outros" },
-        ]
-    },
-    {
-        label: "Mercadoria",
-        type: "INCOME",
-        subcategories: [
-            { label: "Outros" },
-        ]
-    },
-    //Expenses Categories
+    // Expenses Categories
     {
         label: "Prédio",
         type: "EXPENSE",
@@ -106,21 +48,9 @@ const categories = [
         type: "EXPENSE",
         subcategories: [
             { label: "Embalagen" },
-            { label: "Papeis diversos" },
             { label: "Papeis especiais" },
-            { label: "Papel offset 180g" },
-            { label: "Papel fotográfico 180g" },
-            { label: "Papel fotográfico 230g" },
-            { label: "Papel fotográfico adesivo 130g" },
-            { label: "Papel fotográfico dupla face 200g" },
-            { label: "Papel fotográfico dupla face 200g" },
             { label: "Tinta" },
             { label: "Colas" },
-            { label: "Fita duplaface" },
-            { label: "Espiras" },
-            { label: "Polaseal" },
-            { label: "Envelopes" },
-            { label: "Materiais para escritório" },
             { label: "Outros" },
         ]
     },
@@ -181,28 +111,46 @@ const categories = [
             { label: "Outros" },
         ]
     },
-]
+];
 
-try {
-    categories.forEach(async (it) => {
-        const createdCategory = await prisma.categories.create({
-            data: {
-                label: it.label,
-                type: it.type
+(async () => {
+    try {
+        for (const category of categories) {
+            let createdCategory = await prisma.categories.findFirst({
+                where: { label: category.label }
+            });
+
+            if (!createdCategory) {
+                createdCategory = await prisma.categories.create({
+                    data: {
+                        label: category.label,
+                        type: category.type
+                    }
+                });
             }
-        })
 
-        it.subcategories.forEach(async (it) => {
-            await prisma.subcategories.create({
-                data: {
-                    category_id: createdCategory.id,
-                    label: it.label
+            for (const subcategory of category.subcategories) {
+                const existingSubcategory = await prisma.subcategories.findFirst({
+                    where: {
+                        label: subcategory.label,
+                        category_id: createdCategory.id
+                    }
+                });
+
+                if (!existingSubcategory) {
+                    await prisma.subcategories.create({
+                        data: {
+                            category_id: createdCategory.id,
+                            label: subcategory.label
+                        }
+                    });
                 }
-            })
-        })
-    })
-} catch (err) {
-    throw new Error(err)
-}
-
-
+            }
+        }
+    } catch (err) {
+        console.error(err);
+        throw new Error(err);
+    } finally {
+        await prisma.$disconnect();
+    }
+})();
