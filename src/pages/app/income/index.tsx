@@ -20,16 +20,17 @@ const validationSchema = Yup.object().shape({
   account: Yup.string().required("Selecione uma forma de pagamento"),
 })
 
-let defaultCategory = "Creative"
+
 
 export default function Incoming() {
   const { accounts, categories, subcategories, user } = useAppData()
   const incomeCategories = categories.filter((it) => it.type === "INCOME")
-
   if (!user || !categories || !subcategories || !accounts) {
     return <Progress variant="screen" />
   }
-
+  
+  let defaultCategory = categories[0]?.label || ""
+  
   const { enqueueSnackbar } = useSnackbar()
 
   const [selectedCategory, setSelectedCategory] = useState<{ id: string | undefined, label: string | undefined }>({ label: defaultCategory, id: categories.find(it => it.label == defaultCategory)?.id })
@@ -72,8 +73,8 @@ export default function Incoming() {
         className="w-full"
         initialValues={{
           value: "",
-          category: "Creative",
-          subcategory: "Outros",
+          category: categories[0]?.id || "",
+          subcategory: "",
           date: new Date(),
           description: "",
           account: "Espécie",
@@ -191,11 +192,15 @@ export default function Incoming() {
                     {incomeCategories
                       .slice() // cria uma cópia do array para não alterar o original
                       .sort((a, b) => a.label.localeCompare(b.label)) // ordena o array alfabeticamente
-                      .map((it) => (
-                        <option key={it.id} value={it.label}>
-                          {it.label}
-                        </option>
-                      ))}
+                      .map((it) => {
+                        // console.log(it)
+                        return (
+                          <option key={it.id} value={it.label}>
+                            {it.label}
+                          </option>
+                        )
+                      }
+                      )}
                   </Field>
 
                   <div onClick={handleAddCategory} className="flex items-center cursor-pointer">
@@ -222,6 +227,7 @@ export default function Incoming() {
                         (it) => it.category_id === selectedCategory?.id
                       )
                       .map((it) => {
+                        // console.log(it)
                         return (
                           <option key={it.id} value={it.label}>
                             {it.label}

@@ -12,7 +12,7 @@ const users = [
     },
     {
         first_name: "Administrador",
-        last_name: "Root",
+        last_name: "ROOT",
         username: "admin",
         password: "cast32",
     },    
