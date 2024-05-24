@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import Progress from '@/components/Progress';
-import { Accounts } from '@prisma/client';
+// import { Accounts } from '@prisma/client';
 import AccountsBalances from '@components/AccountsBalances';
 import CheckPermissions from '@middlewares/CheckPermissions';
 import { useSnackbar } from 'notistack';
+import BankAccounts from '../bank_accounts';
 
 interface AccountsProps {
-  accounts: Accounts[]
+  // accounts: Accounts[]
 }
 
 function Accounts() {
-  const [data, setData] = useState<AccountsProps | null>(null)
+  const [data, setData] = useState<any>(null)
+  // const [data, setData] = useState<AccountsProps | null>(null)
   const { enqueueSnackbar } = useSnackbar()
 
   const fetchData = () => {
@@ -47,7 +49,8 @@ function Accounts() {
           <div className='flex flex-col w-full p-[18px]'>
             <h1 className='mx-8 text-2xl text-white'>Contas</h1>
             <div className='accounts-balances-container flex flex-wrap gap-4 m-8'>
-              <AccountsBalances accounts={accounts} />
+              {/* <AccountsBalances accounts={accounts} /> */}
+              <BankAccounts />
             </div>
           </div>
         </div>

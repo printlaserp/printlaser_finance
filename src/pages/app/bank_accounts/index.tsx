@@ -29,9 +29,7 @@ export default function BankAccounts() {
 
   return (
     <CheckPermissions allowedRoles={['ADMIN', 'ROOT']}>
-
       <div className="container flex flex-col h-fit min-h-screen justify-center rounded-sm items-center p-4">
-
         <div className="flex justify-center flex-wrap items-center w-full gap-2">
           {accounts.map((it) => (
             <div key={it.id} className="card block items-center justify-between flex-col w-48 h-24 rounded-md p-4 bg-slate-100">

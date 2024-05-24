@@ -12,6 +12,7 @@ import { useState } from "react"
 import DatePicker from "react-datepicker"
 import * as Yup from "yup"
 import { accessRules } from "../../../rules"
+import CheckPermissions from "@middlewares/CheckPermissions"
 
 const validationSchema = Yup.object().shape({
   value: Yup.string().required("O campo Valor é obrigatório"),
@@ -166,9 +167,11 @@ export default function Expense() {
                         </option>
                       ))}
                   </Field>
-                  <div onClick={handleAddCategory} className="flex items-center cursor-pointer">
-                    <PlusCircle size={32} className="text-gray-600" />
-                  </div>
+                  <CheckPermissions allowedRoles={['ROOT', 'ADMIN']} >
+                    <div onClick={handleAddCategory} className="flex items-center cursor-pointer">
+                      <PlusCircle size={32} className="text-gray-600" />
+                    </div>
+                  </CheckPermissions>
                 </div>
                 <div className="flex text-red-500 justify-end text-sm">
                   {errors.category && touched.category && errors.category}
@@ -198,9 +201,11 @@ export default function Expense() {
                       )
                       )}
                   </Field>
-                  <div onClick={handleAddSubcategory} className="flex items-center cursor-pointer">
-                    <PlusCircle size={32} className="text-gray-600" />
-                  </div>
+                  <CheckPermissions allowedRoles={['ROOT', 'ADMIN']} >
+                    <div onClick={handleAddSubcategory} className="flex items-center cursor-pointer">
+                      <PlusCircle size={32} className="text-gray-600" />
+                    </div>
+                  </CheckPermissions>
                 </div>
 
                 <div className="flex text-red-500 justify-end text-sm">
