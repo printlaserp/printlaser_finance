@@ -13,6 +13,7 @@ import { useState } from "react"
 import DatePicker from "react-datepicker"
 import * as Yup from "yup"
 import { accessRules } from "../../../rules"
+import CheckPermissions from "@middlewares/CheckPermissions"
 
 const validationSchema = Yup.object().shape({
   value: Yup.string().required("O campo Valor é obrigatório"),
@@ -28,9 +29,9 @@ export default function Incoming() {
   if (!user || !categories || !subcategories || !accounts) {
     return <Progress variant="screen" />
   }
-  
+
   let defaultCategory = categories[0]?.label || ""
-  
+
   const { enqueueSnackbar } = useSnackbar()
 
   const [selectedCategory, setSelectedCategory] = useState<{ id: string | undefined, label: string | undefined }>({ label: defaultCategory, id: categories.find(it => it.label == defaultCategory)?.id })
@@ -202,10 +203,11 @@ export default function Incoming() {
                       }
                       )}
                   </Field>
-
-                  <div onClick={handleAddCategory} className="flex items-center cursor-pointer">
-                    {user?.role === 'ADMIN' && <PlusCircle size={32} className="text-gray-600" />}
-                  </div>
+                  <CheckPermissions allowedRoles={['ROOT', 'ADMIN']} >
+                    <div onClick={handleAddCategory} className="flex items-center cursor-pointer">
+                      <PlusCircle size={32} className="text-gray-600" />
+                    </div>
+                  </CheckPermissions>
                 </div>
                 <div className="flex text-red-500 justify-end text-sm">
                   {errors.category && touched.category}
@@ -235,12 +237,12 @@ export default function Incoming() {
                         )
                       })}
                   </Field>
-                  <div onClick={handleAddSubcategory} className="flex items-center cursor-pointer">
-                    {user?.role === 'ADMIN' && <PlusCircle size={32} className="text-gray-600" />}
-                  </div>
-                </div>
-
-
+                  <CheckPermissions allowedRoles={['ROOT', 'ADMIN']} >
+                    <div onClick={handleAddSubcategory} className="flex items-center cursor-pointer">
+                      <PlusCircle size={32} className="text-gray-600" />
+                    </div>
+                  </CheckPermissions>
+                </div>  
                 <label htmlFor="description">Descrição</label>
                 <Field
                   name="description"

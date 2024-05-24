@@ -125,14 +125,14 @@ const Sidebar = () => {
                                             </div>
                                         </Link>
                                     </li>}
-                                    <li className="mb-6 cursor-pointer">
+                                    {/* <li className="mb-6 cursor-pointer">
                                         <Link href="/app/credit">
                                             <div className='flex items-center '>
                                                 <IdentificationCard size={22} />
                                                 <button className="flex ml-3 text-gray-300 hover:text-white">Ficha</button>
                                             </div>
                                         </Link>
-                                    </li>
+                                    </li> */}
                                 </ul> : (
                                     <Progress variant='simple' />
                                 )}
