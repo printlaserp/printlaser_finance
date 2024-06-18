@@ -79,11 +79,11 @@ export default function Incoming() {
         className="w-full"
         initialValues={{
           value: '',
-          category: 'Creative',
+          category: 'PrintLaser',
           subcategory: 'Outros',
           date: new Date(),
           description: '',
-          account: 'Espécie',
+          account: 'Caixa',
           observation: '',
           cardType: 'debit',
           recurrence: '1',
