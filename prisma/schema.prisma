@@ -10,7 +10,7 @@ datasource db {
 
 // datasource development {
 //   provider = "sqlite"
-//   url      = env("DATABASE_URL")
+//   url      = env("DATABASE_DEV_URL")
 // }
 
 model Incomings {

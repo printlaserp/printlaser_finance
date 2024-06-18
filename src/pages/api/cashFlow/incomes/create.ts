@@ -7,7 +7,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     category,
     subcategory,
     description,
-    account,
+    account_id,
     observation,
     create_at,
     card_type,
@@ -47,7 +47,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       category: { connect: { id: category } },
       subcategory: { connect: { id: subcategory } },
       created_by: { connect: { id: userId } },
-      account: { connect: { id: account } },
+      account: { connect: { id: account_id } },
     }
 
     await prisma.incomings.create({
@@ -56,7 +56,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     // Atualize o saldo da conta
     await prisma.accounts.update({
-      where: { id: account },
+      where: { id: account_id },
       data: {
         balance: {
           increment: incoming.final_value, // Adicione o valor à conta

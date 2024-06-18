@@ -1,44 +1,49 @@
-import AddCategoryModal from "@/components/AddCategoryModal"
-import AddSubcategoryModal from "@/components/AddSubtegoryModal"
-import CardPaymetMethodModal from "@/components/CardPaymetMethodModal"
-import { CurrencyInput } from "@/components/CurrencyInput"
-import Progress from "@/components/Progress"
-import { useAppData } from "@/contexts/initialDataContext"
-import { CaretDown } from "@phosphor-icons/react/dist/ssr/CaretDown"
-import { CaretUp } from "@phosphor-icons/react/dist/ssr/CaretUp"
-import { PlusCircle } from "@phosphor-icons/react/dist/ssr/PlusCircle"
-import { Field, Form, Formik } from "formik"
-import { useSnackbar } from "notistack"
-import { useState } from "react"
-import DatePicker from "react-datepicker"
-import * as Yup from "yup"
-import { accessRules } from "../../../rules"
-import CheckPermissions from "@middlewares/CheckPermissions"
+import AddCategoryModal from '@/components/AddCategoryModal'
+import AddSubcategoryModal from '@/components/AddSubtegoryModal'
+import CardPaymetMethodModal from '@/components/CardPaymetMethodModal'
+import { CurrencyInput } from '@/components/CurrencyInput'
+import Progress from '@/components/Progress'
+import { useAppData } from '@/contexts/initialDataContext'
+import { CaretDown } from '@phosphor-icons/react/dist/ssr/CaretDown'
+import { CaretUp } from '@phosphor-icons/react/dist/ssr/CaretUp'
+import { PlusCircle } from '@phosphor-icons/react/dist/ssr/PlusCircle'
+import { Field, Form, Formik } from 'formik'
+import { useSnackbar } from 'notistack'
+import { useState } from 'react'
+import DatePicker from 'react-datepicker'
+import * as Yup from 'yup'
+import { accessRules } from '../../../rules'
 
 const validationSchema = Yup.object().shape({
-  value: Yup.string().required("O campo Valor é obrigatório"),
-  category: Yup.string().required("Selecione uma categoria"),
-  account: Yup.string().required("Selecione uma forma de pagamento"),
+  value: Yup.string().required('O campo Valor é obrigatório'),
+  category: Yup.string().required('Selecione uma categoria'),
+  account: Yup.string().required('Selecione uma forma de pagamento')
 })
 
-
+let defaultCategory = 'Creative'
 
 export default function Incoming() {
   const { accounts, categories, subcategories, user } = useAppData()
-  const incomeCategories = categories.filter((it) => it.type === "INCOME")
+  const incomeCategories = categories.filter((it) => it.type === 'INCOME')
+
   if (!user || !categories || !subcategories || !accounts) {
     return <Progress variant="screen" />
   }
 
-  let defaultCategory = categories[0]?.label || ""
-
   const { enqueueSnackbar } = useSnackbar()
 
-  const [selectedCategory, setSelectedCategory] = useState<{ id: string | undefined, label: string | undefined }>({ label: defaultCategory, id: categories.find(it => it.label == defaultCategory)?.id })
+  const [selectedCategory, setSelectedCategory] = useState<{
+    id: string | undefined
+    label: string | undefined
+  }>({
+    label: defaultCategory,
+    id: categories.find((it) => it.label == defaultCategory)?.id
+  })
   const [moreOptions, setMoreOptions] = useState(false)
   const [categoryModal, setCategoryModal] = useState(false)
   const [subcategoryModal, setSubcategoryModal] = useState(false)
-  const [cardPaymetMethodModalState, setCardPaymetMethodModalState] = useState(false)
+  const [cardPaymetMethodModalState, setCardPaymetMethodModalState] =
+    useState(false)
 
   const handleMoreOptions = () => {
     setMoreOptions(!moreOptions)
@@ -73,16 +78,16 @@ export default function Incoming() {
       <Formik
         className="w-full"
         initialValues={{
-          value: "",
-          category: categories[0]?.id || "",
-          subcategory: "",
+          value: '',
+          category: 'Creative',
+          subcategory: 'Outros',
           date: new Date(),
-          description: "",
-          account: "Espécie",
-          observation: "",
-          cardType: "debit",
-          recurrence: "1",
-          cardBanner: "visa",
+          description: '',
+          account: 'Espécie',
+          observation: '',
+          cardType: 'debit',
+          recurrence: '1',
+          cardBanner: 'visa'
         }}
         validationSchema={validationSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
@@ -105,39 +110,61 @@ export default function Incoming() {
             return
           }
 
-          const res = await fetch(
-            "/api/cashFlow/incomes/create",
-            {
-              method: "POST",
-              body: JSON.stringify({
-                value: Number(value),
-                category: categories.find(it => it.label === category)?.id,
-                subcategory: subcategories.find(it => it.label === subcategory)?.id,
-                description: description || subcategories.find(it => it.label === subcategory)?.label || "Outros",
-                account: accounts.find(it => it.label === account)?.id,
-                observation: observation,
-                create_at: date,
-                card_type: cardType,
-                card_banner: cardBanner,
-                recurrence: Number(recurrence),
-                card_payment_method: accounts.find(it => it.label === account)?.is_card_account, //Receita no cartão
-                userId: user?.id
-              }),
-              headers: {
-                "Content-Type": "application/json",
-              },
+          console.log({
+            value: Number(value),
+            category: categories.find((it) => it.label === category)?.id,
+            subcategory: subcategories.find((it) => it.label === subcategory)
+              ?.id,
+            description:
+              description ||
+              subcategories.find((it) => it.label === subcategory)?.label ||
+              'Outros',
+            account_id: accounts.find((it) => it.label === account)?.id,
+            observation: observation,
+            create_at: date,
+            card_type: cardType,
+            card_banner: cardBanner,
+            recurrence: Number(recurrence),
+            card_payment_method: accounts.find((it) => it.label === account)
+              ?.is_card_account, //Receita no cartão
+            userId: user?.id
+          })
+
+          const res = await fetch('/api/cashFlow/incomes/create', {
+            method: 'POST',
+            body: JSON.stringify({
+              value: Number(value),
+              category: categories.find((it) => it.label === category)?.id,
+              subcategory: subcategories.find((it) => it.label === subcategory)
+                ?.id,
+              description:
+                description ||
+                subcategories.find((it) => it.label === subcategory)?.label ||
+                'Outros',
+              account_id: accounts.find((it) => it.label === account)?.id,
+              observation: observation,
+              create_at: date,
+              card_type: cardType,
+              card_banner: cardBanner,
+              recurrence: Number(recurrence),
+              card_payment_method: accounts.find((it) => it.label === account)
+                ?.is_card_account, //Receita no cartão
+              userId: user?.id
+            }),
+            headers: {
+              'Content-Type': 'application/json'
             }
-          )
+          })
 
           if (res.status === 201) {
-            enqueueSnackbar("Nova entrada salva com sucesso!", {
-              variant: "success",
+            enqueueSnackbar('Nova entrada salva com sucesso!', {
+              variant: 'success'
             })
           } else {
             enqueueSnackbar(
               `Error ao salvar a receita! Mensagem de erro: ${res.statusText}`,
               {
-                variant: "error",
+                variant: 'error'
               }
             )
           }
@@ -158,7 +185,9 @@ export default function Incoming() {
         }) => (
           <div className="flex flex-col w-11/12 max-w-sm  rounded-lg items-center bg-slate-100 ">
             <div className="rounded-t-lg h-2 bg-green-600 w-full"></div>
-            <h1 className="text-xl font-bold text-gray-500 mt-4">Nova Receita</h1>
+            <h1 className="text-xl font-bold text-gray-500 mt-4">
+              Nova Receita
+            </h1>
             <Form className="w-full p-4">
               <div className="flex flex-col gap-1">
                 <label htmlFor="value">Valor</label>
@@ -167,7 +196,6 @@ export default function Incoming() {
                   id="value"
                   name="value"
                   onBlur={handleBlur}
-
                 />
                 <div className="flex text-red-500 justify-end text-sm">
                   {errors.value && touched.value && errors.value}
@@ -180,10 +208,12 @@ export default function Incoming() {
                     as="select"
                     className="w-full"
                     onChange={(e: any) => {
-                      const option = e.currentTarget.value as string;
-                      const categoryId = categories.find(it => it.label === option)?.id;
-                      setSelectedCategory({ label: option, id: categoryId });
-                      handleChange(e);
+                      const option = e.currentTarget.value as string
+                      const categoryId = categories.find(
+                        (it) => it.label === option
+                      )?.id
+                      setSelectedCategory({ label: option, id: categoryId })
+                      handleChange(e)
                     }}
                     onBlur={handleBlur}
                   >
@@ -193,21 +223,21 @@ export default function Incoming() {
                     {incomeCategories
                       .slice() // cria uma cópia do array para não alterar o original
                       .sort((a, b) => a.label.localeCompare(b.label)) // ordena o array alfabeticamente
-                      .map((it) => {
-                        // console.log(it)
-                        return (
-                          <option key={it.id} value={it.label}>
-                            {it.label}
-                          </option>
-                        )
-                      }
-                      )}
+                      .map((it) => (
+                        <option key={it.id} value={it.label}>
+                          {it.label}
+                        </option>
+                      ))}
                   </Field>
-                  <CheckPermissions allowedRoles={['ROOT', 'ADMIN']} >
-                    <div onClick={handleAddCategory} className="flex items-center cursor-pointer">
+
+                  <div
+                    onClick={handleAddCategory}
+                    className="flex items-center cursor-pointer"
+                  >
+                    {user?.role === 'ADMIN' && (
                       <PlusCircle size={32} className="text-gray-600" />
-                    </div>
-                  </CheckPermissions>
+                    )}
+                  </div>
                 </div>
                 <div className="flex text-red-500 justify-end text-sm">
                   {errors.category && touched.category}
@@ -225,11 +255,8 @@ export default function Incoming() {
                     {subcategories
                       .slice() // cria uma cópia do array para não alterar o original
                       .sort((a, b) => a.label.localeCompare(b.label)) // ordena o array alfabeticamente
-                      .filter(
-                        (it) => it.category_id === selectedCategory?.id
-                      )
+                      .filter((it) => it.category_id === selectedCategory?.id)
                       .map((it) => {
-                        // console.log(it)
                         return (
                           <option key={it.id} value={it.label}>
                             {it.label}
@@ -237,12 +264,16 @@ export default function Incoming() {
                         )
                       })}
                   </Field>
-                  <CheckPermissions allowedRoles={['ROOT', 'ADMIN']} >
-                    <div onClick={handleAddSubcategory} className="flex items-center cursor-pointer">
+                  <div
+                    onClick={handleAddSubcategory}
+                    className="flex items-center cursor-pointer"
+                  >
+                    {user?.role === 'ADMIN' && (
                       <PlusCircle size={32} className="text-gray-600" />
-                    </div>
-                  </CheckPermissions>
-                </div>  
+                    )}
+                  </div>
+                </div>
+
                 <label htmlFor="description">Descrição</label>
                 <Field
                   name="description"
@@ -257,7 +288,9 @@ export default function Incoming() {
                   id="account"
                   onChange={(e: any) => {
                     const option = e.currentTarget.value
-                    const isCardAccount = accounts.find(it => it.label === option)?.is_card_account
+                    const isCardAccount = accounts.find(
+                      (it) => it.label === option
+                    )?.is_card_account
                     isCardAccount && openCardPaymentMethodModal()
                     handleChange(e)
                   }}
@@ -269,16 +302,19 @@ export default function Incoming() {
                   {accounts
                     .slice() // cria uma cópia do array para não alterar o original
                     .sort((a, b) => a.label.localeCompare(b.label)) // ordena o array alfabeticamente
-                    .filter(it => accessRules[user.role].accountLevel.includes(it.access_level)).map((it) => (
+                    .filter((it) =>
+                      accessRules[user.role].accountLevel.includes(
+                        it.access_level
+                      )
+                    )
+                    .map((it) => (
                       <option key={it.id} id={it.label} value={it.label}>
                         {it.label}
                       </option>
                     ))}
                 </Field>
                 <div className="flex text-red-500 justify-end text-sm">
-                  {errors.account &&
-                    touched.account &&
-                    errors.account}
+                  {errors.account && touched.account && errors.account}
                 </div>
                 <div
                   onClick={handleMoreOptions}
@@ -298,9 +334,9 @@ export default function Incoming() {
                     <DatePicker
                       name="date"
                       id="date"
-                      selected={getFieldProps("date").value}
+                      selected={getFieldProps('date').value}
                       onChange={(date) => {
-                        setFieldValue("date", date)
+                        setFieldValue('date', date)
                       }}
                       dateFormat="dd/MM/yyyy"
                       maxDate={new Date()} // Defina a data máxima como a data atual
@@ -319,31 +355,47 @@ export default function Incoming() {
                   <button
                     type="reset"
                     disabled={isSubmitting}
-                    className={` ${isSubmitting ? 'opacity-50' : ''
-                      } bg-transparent hover:bg-[#008282] text-amber-700 hover:text-white text-sm py-2 px-4 border border-amber-500 hover:border-transparent rounded`}
+                    className={` ${
+                      isSubmitting ? 'opacity-50' : ''
+                    } bg-transparent hover:bg-[#008282] text-amber-700 hover:text-white text-sm py-2 px-4 border border-amber-500 hover:border-transparent rounded`}
                   >
                     Limpar
                   </button>
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`${isSubmitting ? 'bg-[#008282] opacity-50' : 'bg-[#008282] hover:bg-[#008282]'
-                      } text-sm text-white py-2 px-4 border border-[#008282] rounded`}
+                    className={`${
+                      isSubmitting
+                        ? 'bg-[#008282] opacity-50'
+                        : 'bg-[#008282] hover:bg-[#008282]'
+                    } text-sm text-white py-2 px-4 border border-[#008282] rounded`}
                   >
                     Criar
                   </button>
                 </div>
               </div>
               {isSubmitting && <Progress variant="opacity" />}
-              <CardPaymetMethodModal values={values} onClose={closeCardPaymentMethodModal} isOpen={cardPaymetMethodModalState} formField={Field} errors={errors} />
+              <CardPaymetMethodModal
+                values={values}
+                onClose={closeCardPaymentMethodModal}
+                isOpen={cardPaymetMethodModalState}
+                formField={Field}
+                errors={errors}
+              />
             </Form>
           </div>
-        )
-        }
-      </Formik >
-      <AddCategoryModal onClose={closeCategoryModal} isOpen={categoryModal} type="INCOME" />
-      <AddSubcategoryModal onClose={closeSubcategoryModal} isOpen={subcategoryModal} categories={incomeCategories} />
-    </div >
+        )}
+      </Formik>
+      <AddCategoryModal
+        onClose={closeCategoryModal}
+        isOpen={categoryModal}
+        type="INCOME"
+      />
+      <AddSubcategoryModal
+        onClose={closeSubcategoryModal}
+        isOpen={subcategoryModal}
+        categories={incomeCategories}
+      />
+    </div>
   )
 }
-
