@@ -20,7 +20,7 @@ const validationSchema = Yup.object().shape({
   account: Yup.string().required('Selecione uma forma de pagamento')
 })
 
-let defaultCategory = 'Creative'
+let defaultCategory = 'PrintLaser (Especie)'
 
 export default function Incoming() {
   const { accounts, categories, subcategories, user } = useAppData()
@@ -32,13 +32,17 @@ export default function Incoming() {
 
   const { enqueueSnackbar } = useSnackbar()
 
+  // const [selectedCategory, setSelectedCategory] = useState<{
+  //   id: string | undefined
+  //   label: string | undefined
+  // }>({
+  //   label: defaultCategory,
+  //   id: categories.find((it) => it.label == defaultCategory)?.id
+  // })
   const [selectedCategory, setSelectedCategory] = useState<{
     id: string | undefined
     label: string | undefined
-  }>({
-    label: defaultCategory,
-    id: categories.find((it) => it.label == defaultCategory)?.id
-  })
+  }>()
   const [moreOptions, setMoreOptions] = useState(false)
   const [categoryModal, setCategoryModal] = useState(false)
   const [subcategoryModal, setSubcategoryModal] = useState(false)
@@ -79,11 +83,11 @@ export default function Incoming() {
         className="w-full"
         initialValues={{
           value: '',
-          category: 'PrintLaser',
+          category: '',
           subcategory: 'Outros',
           date: new Date(),
           description: '',
-          account: 'Caixa',
+          account: '',
           observation: '',
           cardType: 'debit',
           recurrence: '1',
@@ -217,7 +221,7 @@ export default function Incoming() {
                     }}
                     onBlur={handleBlur}
                   >
-                    <option value="" disabled>
+                    <option defaultChecked value="" disabled>
                       Escolha uma opção
                     </option>
                     {incomeCategories
@@ -296,7 +300,7 @@ export default function Incoming() {
                   }}
                   onBlur={handleBlur}
                 >
-                  <option value="" disabled>
+                  <option defaultChecked value="" disabled>
                     Escolha uma opção
                   </option>
                   {accounts
